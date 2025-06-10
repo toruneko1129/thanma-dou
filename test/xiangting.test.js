@@ -218,6 +218,90 @@ suite('Majiang.Util', ()=>{
             assert.equal(Majiang.Util.xiangting_qidui(
                             Majiang.Shoupai.fromString('m1188s05z1122')),
                             3));
+		
+		test('4枚使い七対子: 空の手牌は13向聴', ()=>
+            assert.equal(Majiang.Util.xiangting_qidui(
+                            Majiang.Shoupai.fromString(),
+							usa_qidui=true),
+                            13));
+        test('4枚使い七対子: 対子なし', ()=>
+            assert.equal(Majiang.Util.xiangting_qidui(
+                            Majiang.Shoupai.fromString('m19p19s19z1234567'),
+							usa_qidui=true),
+                            6));
+        test('4枚使い七対子: 槓子あり', ()=>
+            assert.equal(Majiang.Util.xiangting_qidui(
+                            Majiang.Shoupai.fromString('m1188p288s05z1111'),
+							usa_qidui=true),
+                            0));
+        test('4枚使い七対子: 暗刻あり', ()=>
+            assert.equal(Majiang.Util.xiangting_qidui(
+                            Majiang.Shoupai.fromString('m1188p2388s05z111'),
+							usa_qidui=true),
+                            1));
+        test('4枚使い七対子: 暗刻2つ', ()=>
+            assert.equal(Majiang.Util.xiangting_qidui(
+                            Majiang.Shoupai.fromString('m1188p288s055z111'),
+							usa_qidui=true),
+                            1));
+        test('4枚使い七対子: 聴牌形', ()=>
+            assert.equal(Majiang.Util.xiangting_qidui(
+                            Majiang.Shoupai.fromString('m1188p288s05z1177'),
+							usa_qidui=true),
+                            0));
+        test('4枚使い七対子: 和了形', ()=>
+            assert.equal(Majiang.Util.xiangting_qidui(
+                            Majiang.Shoupai.fromString('m1188p288s05z1177p2'),
+							usa_qidui=true),
+                            -1));
+        test('4枚使い七対子: 副露あり', ()=>
+            assert.equal(Majiang.Util.xiangting_qidui(
+                            Majiang.Shoupai.fromString('m1188p288s05z2,z111='),
+							usa_qidui=true),
+                            Infinity));
+        test('4枚使い七対子: 多牌: 8対子', ()=>
+            assert.equal(Majiang.Util.xiangting_qidui(
+                            Majiang.Shoupai.fromString('m1188p2288s05z1122')
+                                            .zimo('z7', false)
+                                            .zimo('z7', false),
+							usa_qidui=true),
+                            -1));
+        test('4枚使い七対子: 少牌', ()=>
+            assert.equal(Majiang.Util.xiangting_qidui(
+                            Majiang.Shoupai.fromString('m1188s05z1122'),
+							usa_qidui=true),
+                            3));
+		test('4枚使い七対子: 暗刻3つ', ()=>
+            assert.equal(Majiang.Util.xiangting_qidui(
+                            Majiang.Shoupai.fromString('m1199p888s055z111'),
+							usa_qidui=true),
+                            1));
+		test('4枚使い七対子: 槓子2つ', ()=>
+            assert.equal(Majiang.Util.xiangting_qidui(
+                            Majiang.Shoupai.fromString('m1111p8888s55z123'),
+							usa_qidui=true),
+                            1));
+		test('4枚使い七対子: 槓子3つ', ()=>
+            assert.equal(Majiang.Util.xiangting_qidui(
+                            Majiang.Shoupai.fromString('m1111p8888s0555z1'),
+							usa_qidui=true),
+                            0));
+		test('4枚使い七対子: 槓子あり', ()=>
+            assert.equal(Majiang.Util.xiangting_qidui(
+                            Majiang.Shoupai.fromString('m1188p2288s05z1111'),
+							usa_qidui=true),
+                            -1));
+		test('4枚使い七対子: 和了形: 槓子2つ', ()=>
+            assert.equal(Majiang.Util.xiangting_qidui(
+                            Majiang.Shoupai.fromString('m1111p8888s55z1122'),
+							usa_qidui=true),
+                            -1));
+		test('4枚使い七対子: 和了形: 槓子3つ', ()=>
+            assert.equal(Majiang.Util.xiangting_qidui(
+                            Majiang.Shoupai.fromString('m1111p8888s0555z11'),
+							usa_qidui=true),
+                            -1));
+		
 
         test('一般手: 10000パターン', ()=>{
             for (let data of data1) {
@@ -341,6 +425,34 @@ suite('Majiang.Util', ()=>{
                                 Majiang.Shoupai.fromString('m11155p2278s66z17'),
                                 Majiang.Util.xiangting_qidui
                             ),['p7','p8','z1','z7']);
+        });
+		test('4枚使い七対子', ()=>{
+            assert.deepEqual(Majiang.Util.tingpai(
+                                Majiang.Shoupai.fromString('m1188p288s05z1111'),
+								f_xiangting = Majiang.Util.xiangting,
+								usa_qidui=true,
+                            ),['p2']);
+        });
+		test('4枚使い七対子2', ()=>{
+            assert.deepEqual(Majiang.Util.tingpai(
+                                Majiang.Shoupai.fromString('m1111p2222s05z113'),
+								f_xiangting = Majiang.Util.xiangting,
+								usa_qidui=true,
+                            ),['z3']);
+        });
+		test('4枚使い七対子3', ()=>{
+            assert.deepEqual(Majiang.Util.tingpai(
+                                Majiang.Shoupai.fromString('m1111p2222s3333z4'),
+								f_xiangting = Majiang.Util.xiangting,
+								usa_qidui=true,
+                            ),['z4']);
+        });
+		test('面子手と4枚使い七対子', ()=>{
+            assert.deepEqual(Majiang.Util.tingpai(
+                                Majiang.Shoupai.fromString('m111p22334455s66'),
+								f_xiangting = Majiang.Util.xiangting,
+								usa_qidui=true,
+                            ),['m1', 'p2', 'p5', 's6']);
         });
     });
 });
