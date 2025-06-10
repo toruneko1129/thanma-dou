@@ -1,0 +1,28 @@
+{
+  "name": "thanma-dou",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --ui tdd"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toruneko1129/thanma-dou.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/toruneko1129/thanma-dou/issues"
+  },
+  "homepage": "https://github.com/toruneko1129/thanma-dou#readme",
+  "devDependencies": {
+    "mocha": "^11.5.0"
+  }
+}
